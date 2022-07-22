@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS sales;
+
+CREATE TABLE sales
+(
+
+)
