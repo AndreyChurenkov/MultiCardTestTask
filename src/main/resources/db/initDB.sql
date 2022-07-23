@@ -19,4 +19,4 @@ CREATE TABLE Users(
     password    VARCHAR                 NOT NULL
 );
 
-INSERT INTO Users (username, password) VALUES ('test_user', 'test_password');
+INSERT INTO Users (username, password) VALUES ('user', 'password');
