@@ -1,5 +1,8 @@
 package com.example.multicardtesttask.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -7,6 +10,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "sales")
@@ -19,49 +23,50 @@ public class Sale {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     @NotNull
     private String name;
 
-    @Column(name = "lastname", nullable = false)
+    @Column(name = "lastname")
     @NotNull
     private String lastname;
 
-    @Column(name = "age", nullable = false)
+    @Column(name = "age")
     @NotNull
     @Min(1)
     private int age;
 
-    @Column(name = "purchase_item", nullable = false)
-    @NotNull
-    private String purchase_item;
-
-    @Column(name = "count", nullable = false)
+    @Column(name = "count")
     @NotNull
     @Min(1)
     private int count;
 
-    @Column(name = "amount", nullable = false)
+    @Column(name = "amount")
     @NotNull
     @Size(min = 0, max = 9999999)
     private Double amount;
 
-    @Column(name = "purchase_date", nullable = false)
+    @Column(name = "purchase_date")
     @NotNull
     @DateTimeFormat(pattern = DATE_TIME_PATTERN)
-    private LocalDateTime purchase_date;
+    private LocalDateTime purchaseDate;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "sale")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonManagedReference
+    private List<Item> purchaseItem;
 
     public Sale() {
     }
 
-    public Sale(String name, String lastname, int age, String purchase_item, int count, Double amount, LocalDateTime purchase_date) {
+    public Sale(Integer id, String name, String lastname, int age, int count, Double amount, LocalDateTime purchaseDate) {
+        this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.age = age;
-        this.purchase_item = purchase_item;
         this.count = count;
         this.amount = amount;
-        this.purchase_date = purchase_date;
+        this.purchaseDate = purchaseDate;
     }
 
     public Integer getId() {
@@ -96,14 +101,6 @@ public class Sale {
         this.age = age;
     }
 
-    public String getPurchase_item() {
-        return purchase_item;
-    }
-
-    public void setPurchase_item(String purchase_item) {
-        this.purchase_item = purchase_item;
-    }
-
     public int getCount() {
         return count;
     }
@@ -120,11 +117,19 @@ public class Sale {
         this.amount = amount;
     }
 
-    public LocalDateTime getPurchase_date() {
-        return purchase_date;
+    public LocalDateTime getPurchaseDate() {
+        return purchaseDate;
     }
 
-    public void setPurchase_date(LocalDateTime purchase_date) {
-        this.purchase_date = purchase_date;
+    public void setPurchaseDate(LocalDateTime purchase_date) {
+        this.purchaseDate = purchase_date;
+    }
+
+    public List<Item> getPurchaseItem() {
+        return purchaseItem;
+    }
+
+    public void setPurchaseItem(List<Item> purchaseItem) {
+        this.purchaseItem = purchaseItem;
     }
 }

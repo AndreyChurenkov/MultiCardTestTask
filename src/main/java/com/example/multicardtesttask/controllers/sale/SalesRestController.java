@@ -1,4 +1,4 @@
-package com.example.multicardtesttask.controllers;
+package com.example.multicardtesttask.controllers.sale;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
