@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sale</title>
+</head>
+<body>
+<!--<div th:each="sale : ${sales}">-->
+<!--    <a th:text="${sale.getName()}">name</a>-->
+<!--    <a th:text="${sale.getLastname()}">lastname</a>-->
+<!--    <a th:text="${sale.getAge()}">age</a>-->
+<!--    <a th:href="@{/items/{id}(id=${sale.getId()})}" th:text="покупки">purchase_item</a>-->
+<!--    <a th:text="${sale.getCount()}">count</a>-->
+<!--    <a th:text="${sale.getAmount()}">amount</a>-->
+<!--    <a th:text="${sale.getPurchaseDate}">purchase_date</a>-->
+<!--</div>-->
+
+<table>
+    <thead>
+    <tr>
+        <th> Name </th>
+        <th> Lastname </th>
+        <th> Age </th>
+        <th> Purchase list </th>
+        <th> Count </th>
+        <th> Amount </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${sales.isEmpty()}">
+        <td colspan="2"> No Sales Available </td>
+    </tr>
+    <tr th:each="sale : ${sales}">
+        <td><span th:text="${sale.name}"> Name </span></td>
+        <td><span th:text="${sale.lastname}"> Lastname </span></td>
+        <td><span th:text="${sale.age}"> Age </span></td>
+        <td><a th:href="@{/items/{id}(id=${sale.getId()})}" th:text="покупки" > Purchase items </a></td>
+        <td><span th:text="${sale.count}"> Count </span></td>
+        <td><span th:text="${sale.amount}"> Amount </span></td>
+        <td><span th:text="${sale.purchaseDate}"> Date </span></td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<br>
+<a href="/logout">Logout</a>
+</body>
+</html>
