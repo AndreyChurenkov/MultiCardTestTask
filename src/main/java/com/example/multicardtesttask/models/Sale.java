@@ -6,17 +6,15 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "sales")
 public class Sale {
-
-    public static final String DATE_TIME_PATTERN = "dd.MM.yyyy";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,13 +41,13 @@ public class Sale {
 
     @Column(name = "amount")
     @NotNull
-    @Size(min = 0, max = 9999999)
+    @Max(9999999)
     private Double amount;
 
     @Column(name = "purchase_date")
     @NotNull
-    @DateTimeFormat(pattern = DATE_TIME_PATTERN)
-    private LocalDateTime purchaseDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate purchaseDate;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "sale")
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -59,7 +57,7 @@ public class Sale {
     public Sale() {
     }
 
-    public Sale(Integer id, String name, String lastname, int age, int count, Double amount, LocalDateTime purchaseDate) {
+    public Sale(Integer id, String name, String lastname, int age, int count, Double amount, LocalDate purchaseDate) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
@@ -117,11 +115,11 @@ public class Sale {
         this.amount = amount;
     }
 
-    public LocalDateTime getPurchaseDate() {
+    public LocalDate getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(LocalDateTime purchase_date) {
+    public void setPurchaseDate(LocalDate purchase_date) {
         this.purchaseDate = purchase_date;
     }
 
