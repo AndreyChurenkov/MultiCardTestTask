@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit sale</title>
+</head>
+<body>
+
+<h2> Изменение заказа </h2>
+<br>
+
+<form th:method="PATCH" th:action="@{/sales/{id}(id=${sale.id})}" th:object="${sale}">
+
+    <label for="name"> Введите имя: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br>
+    <label for="lastname"> Введите фамилию: </label>
+    <input type="text" th:field="*{lastname}" id="lastname"/>
+    <br>
+    <label for="age"> Введите возраст: </label>
+    <input type="number" th:field="*{age}" min="1" step="1" id="age"/>
+    <br>
+
+    <a th:href="@{/items/{id}(id=${sale.getId()})}" th:text="покупки" > Purchase items </a>
+
+    <br>
+    <label for="count"> Введите количество: </label>
+    <input type="number" th:field="*{count}" min="1" step="1" id="count"/>
+    <br>
+    <label for="amount"> Введите сумму: </label>
+    <input type="number" th:field="*{amount}" step="0.01" max="99999" id="amount"/>
+    <br>
+    <label for="purchaseDate"> Введите дату: </label>
+    <input type="date" th:field="*{purchaseDate}" id="purchaseDate">
+    <br>
+    <input type="submit" value="Обновить!"/>
+</form>
+
+</body>
+</html>

@@ -6,15 +6,23 @@
 </head>
 <body>
 
+<h2> Все заказы </h2>
+<form th:action="@{sales/new}">
+    <input type="submit" value="Создать заказ" />
+</form>
+<br>
+
 <table>
     <thead>
     <tr>
-        <th> Name </th>
-        <th> Lastname </th>
-        <th> Age </th>
-        <th> Purchase list </th>
-        <th> Count </th>
-        <th> Amount </th>
+        <th> Номер </th>
+        <th> Имя </th>
+        <th> Фамилия </th>
+        <th> Возраст </th>
+        <th> Покупки </th>
+        <th> Количество </th>
+        <th> Сумма </th>
+        <th> Дата </th>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +30,7 @@
         <td colspan="2"> No Sales Available </td>
     </tr>
     <tr th:each="sale : ${sales}">
+        <td><span th:text="${sale.id}"> Id </span></td>
         <td><span th:text="${sale.name}"> Name </span></td>
         <td><span th:text="${sale.lastname}"> Lastname </span></td>
         <td><span th:text="${sale.age}"> Age </span></td>
@@ -29,12 +38,38 @@
         <td><span th:text="${sale.count}"> Count </span></td>
         <td><span th:text="${sale.amount}"> Amount </span></td>
         <td><span th:text="${sale.purchaseDate}"> Date </span></td>
+        <td>
+            <form th:action="@{/sales/{id}/edit(id=${sale.getId()})}" th:object="${sale}">
+                <input type="submit" value="Изменить" />
+            </form>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/sales/{id}(id=${sale.getId()})}">
+                <input type="submit" value="Удалить" style="color: red"/>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>
+<br>
+
+<form th:action="@{/sales/by_week}">
+    <input type="submit" value="Покупки за последнюю неделю" />
+</form>
+<form th:action="@{/items/top_by_month}">
+    <input type="submit" value="Самый продаваемый товар за месяц" />
+</form>
+<form th:action="@{sales/top_buyer_by_six_month}">
+    <input type="submit" value="Покупатель совершивший больше покупок за полгода" />
+</form>
+<form th:action="@{/items/top_by_buyer18}">
+    <input type="submit" value="Самый продаваемый товар у людей в возрасте 18 лет" />
+</form>
 
 <br>
 <br>
-<a href="/logout">Logout</a>
+<form th:action="@{/logout}">
+    <input type="submit" value="Выйти" />
+</form>
 </body>
 </html>

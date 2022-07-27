@@ -5,6 +5,10 @@
     <title>Item</title>
 </head>
 <body>
+
+<h2> Список покупок </h2>
+<br>
+
 <div th:each="item : ${items}">
     <a th:text="${item.name}">name</a>
 </div>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New sale</title>
+</head>
+<body>
+
+<h2> Создание нового заказа </h2>
+<br>
+
+<form th:method="POST" th:action="@{/sales}" th:object="${sale}">
+    <label for="name"> Введите имя: </label>
+    <input type="text" th:field="*{name}" minlength="3" id="name"/>
+    <br>
+    <label for="lastname"> Введите фамилию: </label>
+    <input type="text" th:field="*{lastname}" minlength="3" id="lastname"/>
+    <br>
+    <label for="age"> Введите возраст: </label>
+    <input type="number" th:field="*{age}" min="1" step="1" id="age"/>
+    <br>
+    <label for="count"> Введите количество: </label>
+    <input type="number" th:field="*{count}" min="1" step="1" id="count"/>
+    <br>
+    <label for="amount"> Введите сумму: </label>
+    <input type="number" th:field="*{amount}" step="0.01" max="99999" id="amount"/>
+    <br>
+    <label for="purchaseDate"> Введите дату: </label>
+    <input type="date" th:field="*{purchaseDate}" id="purchaseDate">
+    <br>
+    <input type="submit" value="Создать!"/>
+</form>
+
+</body>
+</html>
