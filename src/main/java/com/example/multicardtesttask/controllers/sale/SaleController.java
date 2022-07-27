@@ -2,6 +2,7 @@ package com.example.multicardtesttask.controllers.sale;
 
 import com.example.multicardtesttask.models.Sale;
 import com.example.multicardtesttask.repositories.SaleRepository;
+import com.example.multicardtesttask.services.SalesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,25 +11,25 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/sales")
-public class SalesController {
+public class SaleController {
 
-    private final SaleRepository repository;
+    private final SalesService service;
 
     @Autowired
-    public SalesController(SaleRepository repository) {
-        this.repository = repository;
+    public SaleController(SalesService service) {
+        this.service = service;
     }
 
     @GetMapping
     public String getAllSales(Model model) {
-        model.addAttribute("sales", repository.findAll());
+        model.addAttribute("sales", service.findAll());
 
         return "main_page";
     }
 
     @GetMapping("/{id}")
     public String getSaleById(@ModelAttribute("sale") Sale sale) {
-        repository.findSaleById(sale.getId());
+        service.findSaleById(sale.getId());
 
         return "main_page";
     }
@@ -40,28 +41,28 @@ public class SalesController {
 
     @PostMapping
     public String create(@ModelAttribute("sale") Sale sale) {
-        repository.save(sale);
+        service.save(sale);
 
         return "redirect:/sales";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model) {
-        model.addAttribute("sale", repository.findById(id).orElse(null));
+        model.addAttribute("sale", service.findById(id));
 
         return "edit";
     }
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("sale") Sale sale) {
-        repository.save(sale);
+        service.save(sale);
 
         return "redirect:/sales";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        repository.deleteById(id);
+        service.deleteById(id);
 
         return "redirect:/sales";
     }
@@ -69,7 +70,7 @@ public class SalesController {
     // Покупки за неделю
     @GetMapping("/by_week")
     public String getSalesByWeek(Model model) {
-        model.addAttribute("sales", repository.findSalesByWeek());
+        model.addAttribute("sales", service.findSalesByWeek());
 
         return "report/sales_by_month";
     }
@@ -78,7 +79,7 @@ public class SalesController {
     @GetMapping("/top_buyer_by_six_month")
     public String getTopBuyerBySixMonth(Model model) {
 
-        model.addAttribute("buyer", repository.findTopBuyerBySixMonth());
+        model.addAttribute("buyer", service.findTopBuyerBySixMonth());
 
         return "report/top_buyer_by_six_month";
     }

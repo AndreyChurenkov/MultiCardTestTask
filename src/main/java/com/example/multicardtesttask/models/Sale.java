@@ -130,4 +130,6 @@ public class Sale {
     public void setPurchaseItem(List<Item> purchaseItem) {
         this.purchaseItem = purchaseItem;
     }
+
+
 }
