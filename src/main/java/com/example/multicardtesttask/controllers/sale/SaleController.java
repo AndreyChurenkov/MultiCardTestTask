@@ -1,7 +1,7 @@
 package com.example.multicardtesttask.controllers.sale;
 
+import com.example.multicardtesttask.exceptions.NotFoundException;
 import com.example.multicardtesttask.models.Sale;
-import com.example.multicardtesttask.repositories.SaleRepository;
 import com.example.multicardtesttask.services.SalesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,47 +24,47 @@ public class SaleController {
     public String getAllSales(Model model) {
         model.addAttribute("sales", service.findAll());
 
-        return "main_page";
+        return "sales/sales";
     }
 
     @GetMapping("/{id}")
-    public String getSaleById(@ModelAttribute("sale") Sale sale) {
-        service.findSaleById(sale.getId());
+    public String getSaleById(@PathVariable("id") int id, Model model) {
+        model.addAttribute("sale", service.getSaleById(id));
 
-        return "main_page";
+        return "sales/sale";
     }
 
     @GetMapping("/new")
     public String newSale(@ModelAttribute("sale") Sale sale) {
-        return "new";
+        return "sales/new";
     }
 
     @PostMapping
     public String create(@ModelAttribute("sale") Sale sale) {
         service.save(sale);
 
-        return "redirect:/sales";
+        return "redirect:";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") int id, Model model) {
-        model.addAttribute("sale", service.findById(id));
+        model.addAttribute("sale", service.getSaleById(id));
 
-        return "edit";
+        return "sales/edit";
     }
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("sale") Sale sale) {
         service.save(sale);
 
-        return "redirect:/sales";
+        return "redirect:";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         service.deleteById(id);
 
-        return "redirect:/sales";
+        return "redirect:";
     }
 
     // Покупки за неделю

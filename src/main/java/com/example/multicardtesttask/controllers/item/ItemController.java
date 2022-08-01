@@ -23,12 +23,7 @@ public class ItemController {
     public String getItems(Model model, @PathVariable("id") int id) {
         model.addAttribute("items", service.findAllBySale_Id(id));
 
-        return "items";
-    }
-
-    @PostMapping("/{id}")
-    public void createOrUpdateItems(@ModelAttribute("item") Item item) {
-        service.save(item);
+        return "sales/items";
     }
 
     // Самый продаваемый товар за месяц
