@@ -6,12 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public interface SaleRepository extends JpaRepository<Sale, Integer> {
 
-    List<Sale> findSaleById(int id);
+    Sale findSaleById(int id);
 
     // Покупки за неделю
     @Query(value = "SELECT * FROM sales\n" +

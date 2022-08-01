@@ -1,14 +1,14 @@
 package com.example.multicardtesttask.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,36 +22,34 @@ public class Sale {
     private Integer id;
 
     @Column(name = "name")
-    @NotNull
+    @NotBlank()
+    @Length(min = 3, max = 30)
     private String name;
 
     @Column(name = "lastname")
-    @NotNull
+    @NotBlank()
+    @Length(min = 3, max = 30)
     private String lastname;
 
     @Column(name = "age")
-    @NotNull
     @Min(1)
+    @Max(120)
     private int age;
 
     @Column(name = "count")
-    @NotNull
     @Min(1)
     private int count;
 
     @Column(name = "amount")
-    @NotNull
     @Max(9999999)
     private Double amount;
 
     @Column(name = "purchase_date")
-    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate purchaseDate;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "sale")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonManagedReference
     private List<Item> purchaseItem;
 
     public Sale() {
