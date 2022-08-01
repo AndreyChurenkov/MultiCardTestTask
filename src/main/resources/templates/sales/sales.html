@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Sale</title>
+    <title>Sales</title>
 </head>
 <body>
 
@@ -30,7 +30,7 @@
         <td colspan="2"> No Sales Available </td>
     </tr>
     <tr th:each="sale : ${sales}">
-        <td><span th:text="${sale.id}"> Id </span></td>
+        <td><a th:href="@{/sales/{id}(id=${sale.getId()})}" th:text="${sale.id}"> Id </a></td>
         <td><span th:text="${sale.name}"> Name </span></td>
         <td><span th:text="${sale.lastname}"> Lastname </span></td>
         <td><span th:text="${sale.age}"> Age </span></td>
@@ -71,5 +71,6 @@
 <form th:action="@{/logout}">
     <input type="submit" value="Выйти" />
 </form>
+
 </body>
 </html>

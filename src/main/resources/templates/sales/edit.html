@@ -20,9 +20,7 @@
     <label for="age"> Введите возраст: </label>
     <input type="number" th:field="*{age}" min="1" step="1" id="age"/>
     <br>
-
     <a th:href="@{/items/{id}(id=${sale.getId()})}" th:text="покупки" > Purchase items </a>
-
     <br>
     <label for="count"> Введите количество: </label>
     <input type="number" th:field="*{count}" min="1" step="1" id="count"/>
